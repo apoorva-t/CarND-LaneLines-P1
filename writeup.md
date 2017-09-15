@@ -8,11 +8,6 @@ The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road
 * Reflect on your work in a written report
 
-
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
-[image2]: ./examples/hough_lines_out.jpg
 ---
 
 ### Reflection
@@ -28,9 +23,8 @@ My pipeline consisted of 5 steps.
 
 4. Hough lines : This stage identifies lane edges using a transformation to Hough space to identify multiple edge pixels in a straight line. The output of OpenCV HoughLinesP function is an array of line segments. In order to accurately determine and extend these to length of the lane edges as seen in an image frame, this calls a function *draw_lines* on the output of HoughLines.
 
-*draw_lines* : The purpose of this function is to determine the left and right lane edges, and extrapolate the lane markers to the top and bottom of the lane edges as seen in the image frame. This is done by iterating over line segments from the HoughLines output, and separating them into 2 sets depending on their slope - a positive slope indicates it is a part of the right edge and a negative slope means it is part of the left edge. This stage computes the average slope and the average (x,y) co-ordinates of the right and left edge line segments. The lane edges are extrapolated to the top of region of interest and lower edge of image using the slope and average (x,y). 
++ *draw_lines* : The purpose of this function is to determine the left and right lane edges, and extrapolate the lane markers to the top and bottom of the lane edges as seen in the image frame. This is done by iterating over line segments from the HoughLines output, and separating them into 2 sets depending on their slope - a positive slope indicates it is a part of the right edge and a negative slope means it is part of the left edge. This stage computes the average slope and the average (x,y) co-ordinates of the right and left edge line segments. The lane edges are extrapolated to the top of region of interest and lower edge of image using the slope and average (x,y). 
 
-![alt text][image2]
 
 In some test images/video frames, stray edges were left over from the previous steps which were not part of either of the left or right lane lines. To filter these stray edges out, setting a threshold of 0.2  for the slopes was found to be effective. 
 
